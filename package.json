@@ -12,7 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --fix",
     "prepublishOnly": "pnpm build",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -40,8 +41,8 @@
   "author": "yangzhou",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@types/node": "^16.6.2",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
@@ -49,8 +50,8 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.2",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
     "tsup": "^4.14.0",
