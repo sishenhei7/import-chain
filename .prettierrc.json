@@ -1,0 +1,16 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 110,
+  "semi": false,
+  "singleQuote": true,
+  "arrowParens": "avoid",
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "proseWrap": "never",
+  "jsxSingleQuote": true,
+  "jsxBracketSameLine": false,
+  "insertPragma": false,
+  "ignorePath": ".prettierignore",
+  "filePath": "src/**/*"
+}

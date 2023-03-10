@@ -15,7 +15,10 @@ specifiers:
   nodemon: ^2.0.12
   prettier: ^2.3.2
   tsup: ^4.14.0
-  typescript: ^4.3.5
+  typescript: ^4.9.5
+
+dependencies:
+  typescript: 4.9.5
 
 devDependencies:
   '@commitlint/cli': 17.4.4
@@ -32,7 +35,6 @@ devDependencies:
   nodemon: 2.0.21
   prettier: 2.8.4
   tsup: 4.14.0_typescript@4.9.5
-  typescript: 4.9.5
 
 packages:
 
@@ -2962,7 +2964,6 @@ packages:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
     engines: {node: '>=4.2.0'}
     hasBin: true
-    dev: true
 
   /uglify-js/3.17.4:
     resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
