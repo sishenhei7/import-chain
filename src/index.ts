@@ -1,24 +1,41 @@
-import ts from 'typescript'
+import getEntryFiles from './entry'
+import FileItem from './file'
+import normalizePath from './path'
+import store from './store'
+import resolveModule from './resolver'
 
-class FileItem {
-  constructor(
-    public path: string,
-    private imports: Set<string> = new Set(),
-    private parents: Set<string> = new Set()
-  ) {}
+const includedPath = ['./pages', './components/experience-booking/experience-activity']
 
-  public addImport(path: string) {
-    this.imports.add(path)
+export default async function getImportChain(filePath: string): Promise<string[][]> {
+  const entryPathList = await getEntryFiles(includedPath)
+  for (const entryPath of entryPathList) {
+    const normalizedEntryPath = normalizePath(entryPath)
+    resolveModule(new FileItem(normalizedEntryPath))
   }
 
-  public addParents(path: string) {
-    this.parents.add(path)
+  const normalizedPath = normalizePath(filePath)
+  if (!normalizedPath) {
+    console.log(`这个文件不存在：${normalizedPath}`)
   }
+
+  const fileItem = store.get(normalizedPath)
+  if (!fileItem) {
+    console.log(`这个文件没有被项目引用: ${normalizedPath}`)
+    return []
+  }
+  return fileItem.getParentsPath()
 }
 
-type FileStore = Map<string, FileItem>
-
-export default function getImportChain (filePath: string): string[][] {
-
-  return []
-}
+;(async () => {
+  const args = process.argv.slice(2)
+  if (!args.length) {
+    console.log('请输入文件名！(示例: npm run import pages/experience/pay/common/base.ts)')
+  } else {
+    const infoList = await getImportChain(args[0])
+    console.log(
+      '引用的顶层文件为：',
+      infoList.map(item => item[0]),
+    )
+    console.log('详细文件路径为：', infoList)
+  }
+})()
