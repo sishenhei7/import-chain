@@ -13,11 +13,13 @@ specifiers:
   husky: ^8.0.0
   lint-staged: ^13.1.2
   nodemon: ^2.0.12
+  picocolors: ^1.0.0
   prettier: ^2.8.4
   tsup: ^6.6.3
   typescript: ^4.9.5
 
 dependencies:
+  picocolors: 1.0.0
   typescript: 4.9.5
 
 devDependencies:
@@ -2509,6 +2511,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /picocolors/1.0.0:
+    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+    dev: false
 
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
