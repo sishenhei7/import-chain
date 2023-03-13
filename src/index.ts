@@ -3,11 +3,10 @@ import FileItem from './file'
 import normalizePath from './path'
 import store from './store'
 import resolveModule from './resolver'
-
-const includedPath = ['./pages', './components/experience-booking/experience-activity']
+import config from './config'
 
 export default async function getImportChain(filePath: string): Promise<string[][]> {
-  const entryPathList = await getEntryFiles(includedPath)
+  const entryPathList = await getEntryFiles(config.includedPath)
   for (const entryPath of entryPathList) {
     const normalizedEntryPath = normalizePath(entryPath)
     resolveModule(new FileItem(normalizedEntryPath))
