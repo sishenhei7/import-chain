@@ -12,7 +12,7 @@ export default function resolveModule(fileItem: FileItem): void {
 
   const sourceFile = ts.createSourceFile(filePath, ts.sys.readFile(filePath) || '', ts.ScriptTarget.Latest)
 
-  sourceFile?.statements?.forEach((node: ts.Node) => {
+  sourceFile.statements.forEach((node: ts.Node) => {
     if (ts.isImportDeclaration(node)) {
       if (ts.isStringLiteral(node.moduleSpecifier)) {
         const childPath = normalizePath(node.moduleSpecifier.text)
@@ -22,7 +22,7 @@ export default function resolveModule(fileItem: FileItem): void {
           fileItem.addImport(child)
           resolveModule(child)
         } else {
-          console.log(`文件${node.moduleSpecifier.text}不存在，已忽略！`)
+          // console.log(`文件${node.moduleSpecifier.text}不存在，已忽略！`)
         }
       }
     }

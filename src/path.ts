@@ -1,5 +1,5 @@
-import { resolve, join, dirname } from 'node:path'
-import { existsSync, readFileSync } from 'node:fs'
+import { resolve, join, dirname } from 'path'
+import { existsSync, readFileSync } from 'fs'
 import config from './config'
 
 export type Tsconfig = Record<string, any>
@@ -29,7 +29,7 @@ function getTsconfig(): Tsconfig | null {
   const tsconfigPath = [
     resolve('tsconfig.json'),
     resolve('tsconfig.build.json'),
-    ...(config.tsconfigPath ? [resolve(config.tsconfigPath)] : []),
+    ...(config.tsconfigPath ? [resolve(config.tsconfigPath)] : [])
   ]
   for (const path of tsconfigPath) {
     if (existsSync(path)) {

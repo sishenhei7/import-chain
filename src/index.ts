@@ -33,7 +33,7 @@ export default async function getImportChain(filePath: string): Promise<string[]
     const infoList = await getImportChain(args[0])
     console.log(
       '引用的顶层文件为：',
-      infoList.map(item => item[0]),
+      infoList.map(item => item[0])
     )
     console.log('详细文件路径为：', infoList)
   }

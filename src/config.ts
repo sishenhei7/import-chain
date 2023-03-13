@@ -9,5 +9,5 @@ export interface Config {
 export default {
   includedPath: ['./pages', './components/experience-booking/experience-activity'],
   excludedPath: [],
-  extensions: ['.ts', '.tsx', '.vue', '.js'],
+  extensions: ['.ts', '.tsx', '.vue', '.js']
 } as Config

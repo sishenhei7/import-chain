@@ -1,6 +1,5 @@
 import { resolve, join } from 'path'
-import { readdir } from 'node:fs/promises'
-import { existsSync, statSync } from 'node:fs'
+import { existsSync, statSync, promises as fsPromises } from 'fs'
 
 function isDirectory(fileName: string) {
   if (existsSync(fileName)) {
@@ -15,28 +14,27 @@ function isFile(fileName: string) {
 }
 
 export default async function getEntryFiles(entryList: string[]): Promise<string[]> {
-  const res: string[] = []
+  let res: string[] = []
+  const directories: string[] = []
+
+  entryList.forEach((entry) => {
+    const entryPath = resolve(entry)
+    if (isFile(entryPath)) {
+      res.push(entryPath)
+    } else if (isDirectory(entryPath)) {
+      directories.push(entryPath)
+    } else {
+      // console.log(`未处理的入口文件：${entryPath}`)
+    }
+  })
+
   await Promise.all(
-    entryList.map(async entry => {
-      const entryPath = resolve(entry)
-      const childFiles = await readdir(entryPath)
-      const directories: string[] = []
-
-      childFiles.forEach(file => {
-        const filePath = join(entryPath, file)
-        if (isFile(filePath)) {
-          res.push(filePath)
-        } else if (isDirectory(filePath)) {
-          directories.push(filePath)
-        } else {
-          console.log(`未处理的入口文件：${filePath}`)
-        }
-      })
-
-      if (directories.length) {
-        res.concat(await getEntryFiles(directories))
-      }
-    }),
+    directories.map(async (directoryPath) => {
+      const childFiles = await fsPromises.readdir(directoryPath)
+      const files = await getEntryFiles(childFiles.map(file => join(directoryPath, file)))
+      res = res.concat(files)
+    })
   )
+
   return res
 }
