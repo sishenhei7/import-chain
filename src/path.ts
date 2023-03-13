@@ -42,7 +42,7 @@ function getTsconfig(): Tsconfig | null {
   return tsconfig
 }
 
-function getMappingPath(path: string, key: string, mapped: string, baseUrl: string) {
+function getMappingPath(path: string, key: string, mapped: string, baseUrl: string): string {
   const mappedPath = mapped.slice(0, -1)
   const mappedDir = resolve(baseUrl, mappedPath)
   const potential = join(mappedDir, path.substring(key.slice(0, -1).length))
