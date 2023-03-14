@@ -1,4 +1,5 @@
-import getEntryFiles from './entry'
+import { performance } from 'perf_hooks'
+import glob from 'fast-glob'
 import FileItem from './file'
 import normalizePath from './path'
 import store from './store'
@@ -7,10 +8,11 @@ import config from './config'
 export { defineConfig } from './config'
 
 export default async function getImportChain(filePath: string): Promise<string[][]> {
+  const start = performance.now()
   await config.loadConfig()
 
-  const entryPathList = await getEntryFiles(config.includedPath || [])
-  for (const entryPath of entryPathList) {
+  const entryPathList = await glob(config.includedPath || [], { onlyFiles: true })
+  for (const entryPath of (entryPathList || [])) {
     const normalizedEntryPath = normalizePath(entryPath)
     resolveModule(new FileItem(normalizedEntryPath))
   }
@@ -25,6 +27,8 @@ export default async function getImportChain(filePath: string): Promise<string[]
     console.log(`这个文件没有被项目引用: ${normalizedPath}`)
     return []
   }
+  const end = performance.now()
+  console.log(`查找总用时：${Math.floor(end - start) / 1000} s`)
   return fileItem.getParentsPath()
 }
 
