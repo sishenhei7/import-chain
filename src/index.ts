@@ -4,9 +4,11 @@ import normalizePath from './path'
 import store from './store'
 import resolveModule from './resolver'
 import config from './config'
+export { defineConfig } from './config'
 
 export default async function getImportChain(filePath: string): Promise<string[][]> {
   await config.loadConfig()
+
   const entryPathList = await getEntryFiles(config.includedPath || [])
   for (const entryPath of entryPathList) {
     const normalizedEntryPath = normalizePath(entryPath)

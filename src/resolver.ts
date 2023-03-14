@@ -1,10 +1,14 @@
 import ts from 'typescript'
+import debug from 'debug'
 import FileItem from './file'
 import normalizePath from './path'
 import store from './store'
 
+const debugResolver = debug('import-chain:resolve')
+
 export default function resolveModule(fileItem: FileItem): void {
   const { path: filePath } = fileItem
+  debugResolver(filePath)
   if (store.has(filePath)) {
     return
   }
@@ -22,7 +26,7 @@ export default function resolveModule(fileItem: FileItem): void {
           fileItem.addImport(child)
           resolveModule(child)
         } else {
-          // console.log(`文件${node.moduleSpecifier.text}不存在，已忽略！`)
+          debugResolver(`文件${node.moduleSpecifier.text}不存在，已忽略！`)
         }
       }
     }

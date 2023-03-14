@@ -1,5 +1,8 @@
 import { resolve } from 'path'
 import { existsSync } from 'fs'
+import debug from 'debug'
+
+const debugConfig = debug('import-chain:config')
 
 function merge(config: Record<string, any>, overrides: Record<string, any>) {
   for (const key in config) {
@@ -32,8 +35,11 @@ class Config {
         const customConfig = (await import(configPath)).default
         merge(this, customConfig)
       } catch (error) {
+        debugConfig('解析 config 文件错误！')
         console.log(error)
       }
+    } else {
+      debugConfig('没有找到 config 文件！')
     }
   }
 }

@@ -1,9 +1,11 @@
 import { resolve, join, dirname } from 'path'
 import { existsSync, readFileSync } from 'fs'
+import debug from 'debug'
 import config from './config'
 
-export type Tsconfig = Record<string, any>
+const debugPath = debug('import-chain:path')
 
+type Tsconfig = Record<string, any>
 let tsconfig: Tsconfig | null
 
 function ensureFileExist(filePath: string): string {
@@ -29,15 +31,17 @@ function getTsconfig(): Tsconfig | null {
   const tsconfigPath = [
     resolve('tsconfig.json'),
     resolve('tsconfig.build.json'),
-    ...(config.tsconfigPath ? [resolve(config.tsconfigPath)] : [])
+    ...(config.tsconfigPath ? [resolve(config.tsconfigPath)] : []),
   ]
   for (const path of tsconfigPath) {
     if (existsSync(path)) {
       tsconfig = JSON.parse(readFileSync(path, 'utf-8'))
+      debugPath(`使用 tsconfig 文件：${path}`)
       return tsconfig
     }
   }
 
+  debugPath('没有找到 tsconfig 文件')
   tsconfig = null
   return tsconfig
 }
