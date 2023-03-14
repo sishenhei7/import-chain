@@ -29,7 +29,7 @@ class Config {
 
     this._isLoaded = true
 
-    const configPath = resolve('import-chain.config')
+    const configPath = resolve('import-chain.config.js')
     if (existsSync(configPath)) {
       try {
         const customConfig = (await import(configPath)).default
@@ -39,7 +39,7 @@ class Config {
         console.log(error)
       }
     } else {
-      debugConfig('没有找到 config 文件！')
+      debugConfig(`没有找到 config 文件: $${configPath}`)
     }
   }
 }
