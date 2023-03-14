@@ -1,11 +1,12 @@
 {
   "name": "import-chain",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "import chain",
   "type": "module",
   "files": [
     "dist"
   ],
+  "main": "./dist/index.js",
   "scripts": {
     "dev": "tsup ./src/index.ts --watch src --format esm",
     "build": "tsup ./src/index.ts --clean --format esm",
